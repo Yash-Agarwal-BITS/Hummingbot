@@ -271,11 +271,6 @@ class ImprovedCEXMM(ScriptStrategyBase):
             self.logger().warning(f"RSI ({self.last_rsi:.2f}) outside safe range ({self.rsi_oversold}-{self.rsi_overbought}). Halting order placement.")
             return []  # Return empty list to prevent orders
 
-        # Add other risk checks here if needed (e.g., max spread check)
-        # max_allowed_spread = Decimal("0.05")  # Example: 5% max spread
-        # if self.bid_spread > max_allowed_spread or self.ask_spread > max_allowed_spread:
-        #     self.logger().warning(f"Spread ({self.bid_spread:.2%}/{self.ask_spread:.2%}) exceeds max allowed ({max_allowed_spread:.2%}). Halting placement.")
-        #     return []
 
         return proposal  # Pass through if no risks triggered
 
@@ -406,7 +401,7 @@ class ImprovedCEXMM(ScriptStrategyBase):
         try:
             orders_df = self.active_orders_df()
             if not orders_df.empty:
-                # Limit columns displayed for brevity
+                # Limit columns displayed just because
                 orders_disp = orders_df[["Exchange", "Market", "Side", "Price", "Amount", "Age"]]
                 lines.extend(["    " + line for line in orders_disp.to_string(index=False).split("\n")])
             else:
